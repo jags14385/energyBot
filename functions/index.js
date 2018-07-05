@@ -31,7 +31,7 @@ var query = db.collection("users").where("username","==",username);
 query.get()
     .then((snapshot) => {
       snapshot.forEach((doc) => {
-        console.log(doc.id, '=>', doc.data());
+        console.log("DOC::::" , doc.data());
          });
     })
     .catch((err) => {
