@@ -24,7 +24,9 @@ if ( username !== null && device !== null) {
     console.log("ROC:: IINFIOIIIIII ", username , device );
 }
 
-db.collection('Refrigator').get()
+var query = db.collection("users").where("username","==",username.toLowerCase());
+
+query.get()
     .then((snapshot) => {
       snapshot.forEach((doc) => {
         console.log(doc.id, '=>', doc.data());
@@ -33,9 +35,9 @@ db.collection('Refrigator').get()
     .catch((err) => {
       console.log('Error getting documents', err);
     });
-
-    console.log("RESPONSE :: ", JSON.stringify(response.body));
+    responseText = username + device ;
     response.setHeader('Content-Type', 'application/json');
     response.send(JSON.stringify({"fulfillmentText":  responseText}));
+    console.log("RESPONSE :: ", JSON.stringify(response.body));
     
  });
