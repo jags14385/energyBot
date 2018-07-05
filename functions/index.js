@@ -24,7 +24,7 @@ if ( username !== null && device !== null) {
     console.log("ROC:: IINFIOIIIIII ", username , device );
 }
 
-var usr = username.toLowerCase();
+var usr = username.toString().toLowerCase();
 
 console.log("USERRRRRRRR: ", usr);
 
