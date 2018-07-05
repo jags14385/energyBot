@@ -13,9 +13,6 @@ var energyConsumption = request.body.queryResult.parameters['annual-energy-consu
 var avgCost = energyConsumption / 4 ;
 var responseText = "Avg Cost for appliance per year is : " + avgCost;
 
-response.setHeader('Content-Type', 'application/json');
-response.send(JSON.stringify({"fulfillmentText":  responseText}));
-
 db.collection('Refrigator').get()
     .then((snapshot) => {
       snapshot.forEach((doc) => {
@@ -26,5 +23,8 @@ db.collection('Refrigator').get()
       console.log('Error getting documents', err);
     });
 
-console.log("RESPONSE :: ", JSON.stringify(response.body));
+    console.log("RESPONSE :: ", JSON.stringify(response.body));
+    response.setHeader('Content-Type', 'application/json');
+    response.send(JSON.stringify({"fulfillmentText":  responseText}));
+    
  });
