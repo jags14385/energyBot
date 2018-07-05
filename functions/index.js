@@ -26,11 +26,11 @@ if ( username !== null && device !== null) {
 
 console.log("USER 139: ", username);
 
-var query = db.collection('users');
+var query = db.collection('werty');
 
 query.get().then(snapshot => {
     snapshot.forEach(doc => {
-      console.log(doc.id, '=>', doc.data());
+      console.log('iqwrgigeigruig',doc.id, '=>', doc.data());
     }).catch(function(error) {
     console.log("Error getting document:", error);
 });
