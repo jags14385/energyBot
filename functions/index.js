@@ -24,7 +24,11 @@ if ( username !== null && device !== null) {
     console.log("ROC:: IINFIOIIIIII ", username , device );
 }
 
-var query = db.collection("users").where("username","==",username.toLowerCase());
+var usr = username.toLowerCase();
+
+console.log("USERRRRRRRR: ", usr);
+
+var query = db.collection("users").where("username","==",usr);
 
 query.get()
     .then((snapshot) => {
