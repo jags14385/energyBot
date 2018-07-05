@@ -24,7 +24,7 @@ if ( username !== null && device !== null) {
     console.log("INFO :: ", username , device );
 }
 
-var query = db.collection('users').where('username','==','ori');
+var query = db.collection('users').where('username','==',`${username}`);
 
 query.get().then(snapshot => {
     snapshot.forEach( doc => {
