@@ -16,7 +16,7 @@ var responseText = "Avg Cost for appliance per year is : " + avgCost;
 db.collection('Refrigator').get()
     .then((snapshot) => {
       snapshot.forEach((doc) => {
-        console.log(doc.id, '=>', doc.data());
+        console.log("DOC::: :",doc.id, '=>', doc.data());
       });
     })
     .catch((err) => {
