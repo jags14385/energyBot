@@ -28,18 +28,20 @@ console.log("USERRRRRRRR: ", username);
 
 var query = db.collection("users").where("username","==",username);
 
-query.get()
-    .then((snapshot) => {
-      snapshot.forEach((doc) => {
-        console.log("DOC::::" , doc.data());
-         });
-    })
-    .catch((err) => {
-      console.log('Error getting documents', err);
-    });
+query.get().then(function(doc) {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+
     responseText = username + device ;
     response.setHeader('Content-Type', 'application/json');
     response.send(JSON.stringify({"fulfillmentText":  responseText}));
-    console.log("RESPONSE :: ", JSON.stringify(response.body));
+    console.log("RESPONSE :: ", JSON.stringify(response));
     
  });
