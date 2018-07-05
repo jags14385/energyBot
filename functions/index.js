@@ -4,7 +4,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
    
 console.log("REQUEST :: ", JSON.stringify(request.body));
 
-var energyConsumption = request.queryResult.parameters.annual-energy-consumption;
+var energyConsumption = request.body.queryResult.parameters['annual-energy-consumption'];
 var avgCost = energyConsumption / 4 ;
 var responseText = "Avg Cost for appliance per year is : " + avgCost;
 
