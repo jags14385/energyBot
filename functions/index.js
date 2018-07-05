@@ -17,30 +17,33 @@ if (energyConsumption !== null ) {
     responseText = "Avg Cost for appliance per year is : " + avgCost;
 }
 
-var username = request.body.queryResult.parameters['username'];
-var device = request.body.queryResult.parameters['device'];
+var username = request.body.queryResult.parameters['username'][0].toLocaleLowerCase();
+var device = request.body.queryResult.parameters['device'][0];
 
 if ( username !== null && device !== null) {
-    console.log("ROC:: IINFIOIIIIII ", username , device );
+    console.log("INFO :: ", username , device );
 }
 
-console.log("USER 139: ", username);
+var query = db.collection('users').where("username","==",`${username}`);
 
-var query = db.collection('users').doc(username)
+query.get().then((snapshot) => {
+  if (snapshot.exists) {
+    snapshot.forEach((doc) => {
+      if(doc.exists) {
+        console.log(doc.id, '=>', doc.data());
+      } else {
+        console.log('no doc exits');
+      }
+    });
+  } else {
+    console.log("snapshot does not exist");
+  }
+})
+.catch((err) => {
+  console.log('Error getting documents', err);
+});
 
-query.get().then(doc => {
-    if (!doc.exists) {
-      console.log('No such document!');
-    } else {
-      console.log('Document data:', doc.data());
-    }
-  })
-  .catch(err => {
-    console.log('Error getting document', err);
-  });
-
-
-    responseText = username + device ;
-    response.setHeader('Content-Type', 'application/json');
-    response.send(JSON.stringify({"fulfillmentText":  responseText}));    
+  responseText = username + device ;
+  response.setHeader('Content-Type', 'application/json');
+  response.send(JSON.stringify({fulfillmentText:  responseText}));
  });
