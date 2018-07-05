@@ -26,7 +26,7 @@ if ( username !== null && device !== null) {
 
 console.log("USERRRRRRRR: ", username);
 
-var query = db.collection("users").where("username","==",username);
+var query = db.collection("users") .where("username", "==", "ori") 
 
 query.get().then(function(doc) {
     if (doc.exists) {
@@ -42,6 +42,6 @@ query.get().then(function(doc) {
     responseText = username + device ;
     response.setHeader('Content-Type', 'application/json');
     response.send(JSON.stringify({"fulfillmentText":  responseText}));
-    console.log("RESPONSE :: ", JSON.stringify(response));
+    console.log("RESPONSE :: ", response);
     
  });
