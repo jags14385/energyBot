@@ -9,7 +9,6 @@ var db = admin.firestore();
 exports.helloWorld = functions.https.onRequest((request, response) => {
    
 console.log("REQUEST :: ", JSON.stringify(request.body));
-console.log("REQUEST :: ", JSON.stringify(response.body));
 
 var energyConsumption = request.body.queryResult.parameters['annual-energy-consumption'];
 var avgCost = energyConsumption / 4 ;
@@ -28,4 +27,5 @@ db.collection('Refrigator').get()
       console.log('Error getting documents', err);
     });
 
+console.log("RESPONSE :: ", JSON.stringify(response.body));
  });
