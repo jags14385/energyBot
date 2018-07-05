@@ -10,5 +10,5 @@ var responseText = "Avg Cost for appliance per year is : " + avgCost;
 
 response.setHeader('Content-Type', 'application/json');
 response.send(JSON.stringify({"fulfillmentText":  responseText}));
-console.log("REQUEST :: ", JSON.stringify(response.body));
+console.log("RESPONSE :: ", JSON.stringify(response.body));
  });
