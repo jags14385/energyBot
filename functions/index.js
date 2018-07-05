@@ -26,15 +26,19 @@ if ( username !== null && device !== null) {
 
 console.log("USER 139: ", username);
 
-var query = db.collection('users');
+var query = db.collection('users').doc(username)
 
-query.get().then(snapshot => {
-    snapshot.forEach(doc => {
-      console.log(doc.id, '=>', doc.data());
-    }).catch(function(error) {
-    console.log("Error getting document:", error);
-});
-});
+query.get().then(doc => {
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      console.log('Document data:', doc.data());
+    }
+  })
+  .catch(err => {
+    console.log('Error getting document', err);
+  });
+
 
     responseText = username + device ;
     response.setHeader('Content-Type', 'application/json');
