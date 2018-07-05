@@ -30,7 +30,7 @@ var query = db.collection('users');
 
 query.get().then(snapshot => {
     snapshot.forEach(doc => {
-      console.log('INFOOOOOO ::: ',doc.id, '=>', doc.data());
+      console.log(doc.id, '=>', doc.data());
     }).catch(function(error) {
     console.log("Error getting document:", error);
 });
