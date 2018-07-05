@@ -24,24 +24,19 @@ if ( username !== null && device !== null) {
     console.log("INFO :: ", username , device );
 }
 
-var query = db.collection('users').where("username","==",`${username}`);
+var query = db.collection('users');
 
-query.get().then((snapshot) => {
-  if (snapshot.exists) {
-    snapshot.forEach((doc) => {
-      if(doc.exists) {
-        console.log(doc.id, '=>', doc.data());
-      } else {
-        console.log('no doc exits');
-      }
-    });
-  } else {
-    console.log("snapshot does not exist");
-  }
-})
-.catch((err) => {
-  console.log('Error getting documents', err);
-});
+query.get().then(snapshot => {
+    snapshot.forEach( doc => {
+        if(doc.exists) {
+          console.log(doc.id, '=>', doc.data());
+        } else {
+          console.log('no doc exits');
+        }
+    })
+  }).catch((err) => {
+    console.log('Error getting documents', err);
+  });
 
   responseText = username + device ;
   response.setHeader('Content-Type', 'application/json');
