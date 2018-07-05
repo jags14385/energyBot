@@ -24,24 +24,20 @@ if ( username !== null && device !== null) {
     console.log("ROC:: IINFIOIIIIII ", username , device );
 }
 
-console.log("USER 39: ", username);
+console.log("USER 139: ", username);
 
-var query = db.collection("users").where("username", "==", "ori");
+var query = db.collection('users');
 
-query.get().then(function(doc) {
-    if (doc.exists) {
-        console.log("Document data:", doc.data());
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-}).catch(function(error) {
+query.get().then(snapshot => {
+    snapshot.forEach(doc => {
+      console.log(doc.id, '=>', doc.data());
+    }).catch(function(error) {
     console.log("Error getting document:", error);
+});
+
 });
 
     responseText = username + device ;
     response.setHeader('Content-Type', 'application/json');
-    response.send(JSON.stringify({"fulfillmentText":  responseText}));
-    console.log("RESPONSE :: ", response.body);
-    
+    response.send(JSON.stringify({"fulfillmentText":  responseText}));    
  });
