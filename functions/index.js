@@ -4,7 +4,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
    
 console.log("REQUEST :: ", JSON.stringify(request.body));
 
-switch (request){
+switch (request.queryResult.queryText){
     case '100kwh':
             response.setHeader('Content-Type', 'application/json');
             response.send(JSON.stringify({"fulfillmentText": "Response for 100kwh" }));
