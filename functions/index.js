@@ -34,8 +34,6 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 
                 console.log("Dishwasher: ",dishWasherSpec);
                 console.log("Fridge: ", refrigatorSpec);
-                console.log("Dpsec: " ,dishWasherSpec.split('-'));
-                console.log("RSpec: ", refrigatorSpec.split('-'));
             } else {
                 console.log('no doc exits');
             }
@@ -45,7 +43,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         return db.collection('fridge').get().then(snap => {
             snap.forEach(docu => {
                 console.log(docu.id, '=====>', docu.data());
-                var fridgeModel = refrigatorSpec.split('-')[1];
+                var fridgeModel = refrigatorSpec;
                 console.log(fridgeModel);
                 console.log(docu.data()[fridgeModel]);
                 consumption1 = docu.data()[fridgeModel];
@@ -57,7 +55,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         return db.collection('washer').get().then(snap => {
             snap.forEach(docu => {
                 console.log(docu.id, '=====>', docu.data());
-                var dishWasherModel = dishWasherSpec.split('-')[1];
+                var dishWasherModel = dishWasherSpec;
                 console.log(dishWasherModel);
                 console.log(docu.data()[dishWasherModel]);
                 consumption2 = docu.data()[dishWasherModel];
@@ -72,7 +70,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         response.setHeader('Content-Type', 'application/json');
         response.send(JSON.stringify({
             fulfillmentText: responseText ,
-            speech: responseText
+            final_response: responseText
         })
     );    
 });
