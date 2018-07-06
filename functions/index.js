@@ -71,7 +71,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
     })
     .then(() => {
         consumption = consumption1 + consumption2 ;
-        responseText = "For User: " +username + " The annual energy consumption is : " + consumption;
+        responseText = "For User: " +username + " The approx annual energy costs is : " + ( consumption/4 );
         console.log(responseText);
         response.setHeader('Content-Type', 'application/json');
         response.send(JSON.stringify({
