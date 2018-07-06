@@ -17,7 +17,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         responseText = "Avg Cost for appliance per year is : " + avgCost;
     }
 
-    var username = request.body.queryResult.parameters['username'][0].toLocaleLowerCase();
+    var username = request.body.queryResult.parameters['username'].toLocaleLowerCase();
 
     var query = db.collection('users').where('username', '==', `${username}`);
     var consumption,consumption1,consumption2;
@@ -42,7 +42,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
     .then(() => {
         return db.collection('fridge').get().then(snap => {
             snap.forEach(docu => {
-                console.log(docu.id, '=====>', docu.data());
+                console.log("fridge: " ,docu.id, '=====>', docu.data());
                 var fridgeModel = refrigatorSpec;
                 console.log(fridgeModel);
                 console.log(docu.data()[fridgeModel]);
@@ -54,7 +54,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
     .then(() => {
         return db.collection('washer').get().then(snap => {
             snap.forEach(docu => {
-                console.log(docu.id, '=====>', docu.data());
+                console.log("washer: ", docu.id, '=====>', docu.data());
                 var dishWasherModel = dishWasherSpec;
                 console.log(dishWasherModel);
                 console.log(docu.data()[dishWasherModel]);
@@ -65,12 +65,12 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
     })
     .then(() => {
         consumption = consumption1 + consumption2 ;
-        responseText = "For User: " +username + " The approx annual energy costs is : " + ( consumption/4 );
+        responseText = "For User: " + username + " The approx annual energy costs is : " + ( consumption/4 );
         console.log(responseText);
         response.setHeader('Content-Type', 'application/json');
         response.send(JSON.stringify({
             fulfillmentText: responseText ,
-            final_response: responseText
+            fulillmentMessages: [ responseText ]
         })
     );    
 });
