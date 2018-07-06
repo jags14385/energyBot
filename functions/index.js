@@ -18,11 +18,6 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
     }
 
     var username = request.body.queryResult.parameters['username'][0].toLocaleLowerCase();
-    var device = request.body.queryResult.parameters['device'][0].toLocaleLowerCase();
-
-    if (username !== null && device !== null) {
-        console.log("INFO :: ", username, device);
-    }
 
     var query = db.collection('users').where('username', '==', `${username}`);
     var consumption,consumption1,consumption2;
@@ -33,8 +28,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         snapshot.forEach(doc => {
             if (doc.exists) {
                 console.log(doc.id, '=>', doc.data());
-                console.log("DEVICE :: ", `${device}`);
-
+                
                 dishWasherSpec = doc.data()['dishwasher'];
                 refrigatorSpec = doc.data()['refrigator'];
 
@@ -80,32 +74,3 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
     );    
 });
 });
-
-    // var p2 = p1.then(() => {
-    //     db.collection('fridge').get().then(snap => {
-    //         snap.forEach(docu => {
-    //             console.log(docu.id, '=====>', docu.data());
-    //             var fridgeModel = refrigatorSpec.split('-')[1];
-    //             console.log(fridgeModel);
-    //             console.log(docu.data()[fridgeModel]);
-    //             consumption1 = docu.data()[fridgeModel];
-    //             console.log("fridge Consumption ::", consumption1)
-    //         });
-    //     });
-    // });
-
-    // var p3 = p1.then(() => {
-    //     db.collection('washer').get().then(snap => {
-    //         snap.forEach(docu => {
-    //             console.log(docu.id, '=====>', docu.data());
-    //             var dishWasherModel = dishWasherSpec.split('-')[1];
-    //             console.log(dishWasherModel);
-    //             console.log(docu.data()[dishWasherModel]);
-    //             consumption2 = docu.data()[dishWasherModel];
-    //             console.log("washer Consumption ::", consumption2)
-    //         });
-    //     });
-    // });
-
-    // Promise.all( [ p2 , p3 ] ).
-    // });
