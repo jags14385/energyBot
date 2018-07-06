@@ -28,12 +28,14 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         snapshot.forEach(doc => {
             if (doc.exists) {
                 console.log(doc.id, '=>', doc.data());
-                
-                dishWasherSpec = doc.data()['dishwasher'];
-                refrigatorSpec = doc.data()['refrigator'];
 
-                console.log(dishWasherSpec.split('-'));
-                console.log(refrigatorSpec.split('-'));
+                dishWasherSpec = doc.data()['dishwasher'];
+                refrigatorSpec = doc.data()['fridge'];
+
+                console.log("Dishwasher: ",dishWasherSpec);
+                console.log("Fridge: ", refrigatorSpec);
+                console.log("Dpsec: " ,dishWasherSpec.split('-'));
+                console.log("RSpec: ", refrigatorSpec.split('-'));
             } else {
                 console.log('no doc exits');
             }
@@ -69,7 +71,8 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         console.log(responseText);
         response.setHeader('Content-Type', 'application/json');
         response.send(JSON.stringify({
-            fulfillmentText: responseText
+            fulfillmentText: responseText ,
+            speech: responseText
         })
     );    
 });
